@@ -12,6 +12,9 @@ const orderRoutes = require('./api/routes/orders');
 //Mongoose Database
 mongoose.connect(
     'mongodb://127.0.0.1:27017/restfulapi',
+    {
+        useNewUrlParser: true,
+    }
 )
 
 //Middlewares
