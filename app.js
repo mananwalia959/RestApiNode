@@ -8,12 +8,15 @@ var cors = require('cors');
 //importing routes
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/users');
+
 
 //Mongoose Database
 mongoose.connect(
     'mongodb://127.0.0.1:27017/restfulapi',
     {
         useNewUrlParser: true,
+        'useCreateIndex': true
     }
 )
 
@@ -31,6 +34,7 @@ app.use(cors());
 //Routes used
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes);
+app.use("/user", userRoutes);
 
 app.use((req,res,next)=>{
     const error = new Error('Not found');
