@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose=require('mongoose');
 const multer=require('multer');
+const checkauth=require('../middleware/check-auth')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -64,7 +65,7 @@ router.get('/',(req,res,next)=>{
   });
    
 
-router.post('/',upload.single('productImage'), (req, res, next) => {
+router.post('/',checkauth,upload.single('productImage'), (req, res, next) => {
     const product= new Product({
         _id:new mongoose.Types.ObjectId(),
         name:req.body.name,
@@ -124,7 +125,7 @@ router.get('/:productId', (req, res, next) => {
     });
 });
 
-router.patch('/:productId', (req, res, next) => {
+router.patch('/:productId',checkauth, (req, res, next) => {
     const id= req.params.productId;
     const updateops =req.body;
     console.log(updateops)
@@ -146,7 +147,7 @@ router.patch('/:productId', (req, res, next) => {
     })
 });
 
-router.delete('/:productId', (req, res, next) => {
+router.delete('/:productId',checkauth, (req, res, next) => {
     const id= req.params.productId;
     Product.deleteOne({ _id: id })
     .exec()
