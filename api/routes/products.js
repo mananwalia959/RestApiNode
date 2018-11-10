@@ -35,7 +35,7 @@ const Product = require('../models/product');
 
 router.get('/',(req,res,next)=>{
     Product.find()
-    .select("name price _id projkjductImage")
+    .select("name price _id productImage")
     .exec()
     .then(docs => {
         const response = {
